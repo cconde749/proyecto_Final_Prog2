@@ -13,11 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author ACER A515
- */
+
 public class LoginController implements Initializable {
 
     @FXML private TextField textField_email;
