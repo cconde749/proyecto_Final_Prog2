@@ -53,7 +53,7 @@
                         <Font name="Courier New" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="225.0" layoutY="568.0" text="Registrate">
+                  <Label fx:id="register_label" layoutX="225.0" layoutY="568.0" text="Registrate">
                      <font>
                         <Font name="Courier New Bold" size="14.0" />
                      </font>
