@@ -13,7 +13,7 @@
    <children>
       <Pane fx:id="background_pane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Pane fx:id="login_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;">
+            <Pane fx:id="login_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;" stylesheets="@style_register.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -45,9 +45,9 @@
                         <Font name="Courier New Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="32.0" layoutY="303.0" prefHeight="52.0" prefWidth="372.0" />
-                  <TextField layoutX="32.0" layoutY="404.0" prefHeight="52.0" prefWidth="372.0" />
-                  <Button layoutX="35.0" layoutY="496.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="372.0" text="Iniciar sesión" />
+                  <TextField fx:id="textField_email" layoutX="32.0" layoutY="303.0" prefHeight="52.0" prefWidth="372.0" />
+                  <TextField fx:id="textField_passwd" layoutX="32.0" layoutY="404.0" prefHeight="52.0" prefWidth="372.0" />
+                  <Button fx:id="logIn_button" layoutX="35.0" layoutY="496.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="372.0" text="Iniciar sesión" />
                   <Label layoutX="32.0" layoutY="568.0" text="¿No tienes una cuenta?">
                      <font>
                         <Font name="Courier New" size="14.0" />

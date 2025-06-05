@@ -1,0 +1,61 @@
+/* Botones redondeados con borde */
+#register_button {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 5px;
+    /*-fx-border-width: 2px;*/
+    /*-fx-border-color: #3a3a3a;  Color del borde */
+    -fx-background-color: #FE5F7D80; /* Color de fondo */
+    -fx-text-fill: black;
+    -fx-font-family: "Courier New Bold";
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 1);
+}
+
+#logIn_button {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 5px;
+    /*-fx-border-width: 2px;*/
+    /*-fx-border-color: #3a3a3a;  Color del borde */
+    -fx-background-color: #FE5F7D80; /* Color de fondo */
+    -fx-text-fill: black;
+    -fx-font-family: "Courier New Bold";
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 1);
+}
+
+/* Efecto hover */
+.register_button {
+    -fx-border-width: 3px; /* Engrosar borde al pasar mouse */
+    -fx-background-color: #45a049;
+}
+
+/* Estilo para un elemento específico por fx:id */
+#textField_email {
+    -fx-font-family: "Courier New";
+        -fx-font-size: 16px;
+        -fx-background-radius: 10px;
+        -fx-border-radius: 8px;
+        -fx-background-radius: 10px;
+        -fx-border-width: 2px;
+        -fx-border-color: #FE5F7D;  Color del borde */
+}
+
+#textField_name {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 16px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #FE5F7D;  Color del borde */
+}
+
+#textField_passwd{
+    -fx-font-family: "Courier New";
+        -fx-font-size: 16px;
+        -fx-background-radius: 10px;
+        -fx-border-radius: 8px;
+        -fx-background-radius: 10px;
+        -fx-border-width: 2px;
+        -fx-border-color: #FE5F7D;  Color del borde */
+}

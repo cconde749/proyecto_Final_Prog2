@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.RegisterController">
    <children>
       <Pane fx:id="background_pane" prefHeight="720.0" prefWidth="1200.0">
          <children>
-            <Pane fx:id="register_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;">
+            <Pane fx:id="register_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;" stylesheets="@style_register.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,7 +43,7 @@
                   <TextField fx:id="textField_name" layoutX="51.0" layoutY="265.0" prefHeight="45.0" prefWidth="350.0" />
                   <TextField fx:id="textField_email" layoutX="51.0" layoutY="362.0" prefHeight="45.0" prefWidth="350.0" />
                   <TextField fx:id="textField_passwd" layoutX="51.0" layoutY="451.0" prefHeight="45.0" prefWidth="350.0" />
-                  <Button fx:id="register_button" layoutX="85.0" layoutY="529.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="280.0" text="Crear cuenta">
+                  <Button fx:id="register_button" layoutX="85.0" layoutY="529.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="280.0" stylesheets="@style_register.css" text="Crear cuenta">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -54,7 +53,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="241.0" layoutY="590.0" text="Inicia sesión">
+                  <Label fx:id="login_label" layoutX="241.0" layoutY="590.0" text="Inicia sesión">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
