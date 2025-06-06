@@ -29,6 +29,7 @@ public class LoginController implements Initializable {
     @FXML private Pane login_pane;
     @FXML private Label register_label;
     private Stage primaryStage;
+    private UserManager userManager = UserManager.getInstance();
 
     /**
      * Initializes the controller class.
@@ -51,16 +52,47 @@ public class LoginController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         });
 
         // Estilo para que parezca un enlace
         register_label.setStyle("-fx-text-fill: #2196F3; -fx-cursor: hand;");
         register_label.setOnMouseEntered(e -> register_label.setUnderline(true));
         register_label.setOnMouseExited(e -> register_label.setUnderline(false));
+
+        //PROCESO DE INICIO DE SESION
+        // Cargar usuarios de prueba
+        userManager.registrar("admin@tinapp.com", "Admin", "admin123");
+        userManager.registrar("user@tinapp.com", "Usuario", "user123");
+
+        logIn_button.setOnAction(Aevent -> {
+            String email = textField_email.getText();
+            String password = textField_passwd.getText();
+
+            if (userManager.autenticar(email, password)) {
+                //Autenticación exitosa
+                cargarVistaPrincipal();
+            } else {
+                System.out.println("Credenciales incorrectas");
+            }
+        });
     }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
+private void cargarVistaPrincipal() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/Catalog.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) logIn_button.getScene().getWindow();
+        stage.setScene(new Scene(root));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
     
 }

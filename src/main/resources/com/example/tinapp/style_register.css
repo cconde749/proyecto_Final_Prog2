@@ -37,7 +37,7 @@
         -fx-border-radius: 8px;
         -fx-background-radius: 10px;
         -fx-border-width: 2px;
-        -fx-border-color: #FE5F7D;  Color del borde */
+        -fx-border-color: #FE5F7D;  /*Color del borde */
 }
 
 #textField_name {
@@ -47,7 +47,7 @@
     -fx-border-radius: 8px;
     -fx-background-radius: 10px;
     -fx-border-width: 2px;
-    -fx-border-color: #FE5F7D;  Color del borde */
+    -fx-border-color: #FE5F7D;  /*Color del borde */
 }
 
 #textField_passwd{
@@ -57,5 +57,5 @@
         -fx-border-radius: 8px;
         -fx-background-radius: 10px;
         -fx-border-width: 2px;
-        -fx-border-color: #FE5F7D;  Color del borde */
+        -fx-border-color: #FE5F7D;  /*Color del borde */
 }

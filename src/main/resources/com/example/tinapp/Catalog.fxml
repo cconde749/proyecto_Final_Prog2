@@ -8,43 +8,42 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.CatalogController">
    <children>
       <Pane prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Separator layoutY="110.0" prefWidth="1200.0" />
-            <ImageView fitHeight="105.0" fitWidth="121.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+            <Separator layoutY="90.0" prefWidth="1200.0" />
+            <ImageView fitHeight="92.0" fitWidth="94.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="59.0" fitWidth="48.0" layoutX="525.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/logos/user.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="59.0" fitWidth="48.0" layoutX="777.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="781.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/logos/wishlist-1.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="1056.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1055.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/logos/shopping-cart.png" />
                </image>
             </ImageView>
-            <Label layoutX="581.0" layoutY="56.0" text="Mi cuenta">
+            <Label layoutX="568.0" layoutY="42.0" text="Mi cuenta">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="825.0" layoutY="56.0" text="Lista de deseos">
+            <Label layoutX="811.0" layoutY="42.0" text="Lista de deseos">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="1104.0" layoutY="56.0" text="Carrito">
+            <Label layoutX="1085.0" layoutY="42.0" text="Carrito">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

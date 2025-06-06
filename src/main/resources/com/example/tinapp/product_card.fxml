@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- product_card.fxml -->
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="cardRoot" prefWidth="300" prefHeight="400" styleClass="product-card">
+    <children>
+        <!-- Imagen del producto -->
+        <ImageView fitWidth="280" fitHeight="180" layoutX="10" layoutY="10" preserveRatio="true" />
+
+        <!-- Descripción -->
+        <Label layoutX="15" layoutY="200" text="Nombre Producto" styleClass="product-name" />
+        <Label layoutX="15" layoutY="230" text="Descripción corta..." wrapText="true" styleClass="product-desc" />
+
+        <!-- Precio -->
+        <Label layoutX="15" layoutY="280" text="48000" styleClass="product-price" />
+
+        <!-- Controles de cantidad -->
+        <HBox layoutX="15" layoutY="310" spacing="10">
+            <Button text="-" styleClass="quantity-btn" />
+            <Label text="1" styleClass="quantity-label" />
+            <Button text="+" styleClass="quantity-btn" />
+        </HBox>
+
+        <!-- Botones de acción -->
+        <HBox layoutX="15" layoutY="350" spacing="15">
+            <Button text="Añadir" styleClass="add-to-cart-btn" />
+            <Button styleClass="wishlist-btn">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@/com/images/logos/wishlist-1.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </children>
+</AnchorPane>
