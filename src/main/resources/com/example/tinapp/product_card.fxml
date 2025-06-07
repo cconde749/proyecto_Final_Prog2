@@ -9,33 +9,33 @@
 <!-- product_card.fxml -->
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="cardRoot" prefWidth="300" prefHeight="400" styleClass="product-card">
+<AnchorPane fx:id="cardRoot" prefWidth="350" prefHeight="450" styleClass="product-card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!-- Imagen del producto -->
-        <ImageView fitWidth="280" fitHeight="180" layoutX="10" layoutY="10" preserveRatio="true" />
+        <ImageView fx:id="productImage" fitWidth="330" fitHeight="200" layoutX="10" layoutY="10" preserveRatio="true" />
 
-        <!-- Descripción -->
-        <Label layoutX="15" layoutY="200" text="Nombre Producto" styleClass="product-name" />
-        <Label layoutX="15" layoutY="230" text="Descripción corta..." wrapText="true" styleClass="product-desc" />
+        <!-- Nombre y descripción -->
+        <Label fx:id="productName" layoutX="15" layoutY="220" styleClass="product-name" />
+        <Label fx:id="productDesc" layoutX="15" layoutY="250" wrapText="true" maxWidth="320" styleClass="product-desc" />
 
         <!-- Precio -->
-        <Label layoutX="15" layoutY="280" text="48000" styleClass="product-price" />
+        <Label fx:id="productPrice" layoutX="15" layoutY="300" styleClass="product-price" />
 
         <!-- Controles de cantidad -->
-        <HBox layoutX="15" layoutY="310" spacing="10">
-            <Button text="-" styleClass="quantity-btn" />
-            <Label text="1" styleClass="quantity-label" />
-            <Button text="+" styleClass="quantity-btn" />
+        <HBox layoutX="15" layoutY="330" spacing="10">
+            <Button fx:id="decreaseBtn" text="-" styleClass="quantity-btn" />
+            <Label fx:id="quantityLabel" text="1" styleClass="quantity-label" />
+            <Button fx:id="increaseBtn" text="+" styleClass="quantity-btn" />
         </HBox>
 
         <!-- Botones de acción -->
-        <HBox layoutX="15" layoutY="350" spacing="15">
-            <Button text="Añadir" styleClass="add-to-cart-btn" />
-            <Button styleClass="wishlist-btn">
+        <HBox layoutX="15" layoutY="370" spacing="15">
+            <Button fx:id="addToCartBtn" text="Añadir al carrito" styleClass="add-to-cart-btn" />
+            <Button fx:id="wishlistBtn" styleClass="wishlist-btn">
                 <graphic>
-                    <ImageView fitWidth="20" fitHeight="20">
+                    <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
                         <image>
-                            <Image url="@/com/images/logos/wishlist-1.png" />
+                            <Image url="@../../images/logos/wishlist-1.png" />
                         </image>
                     </ImageView>
                 </graphic>
