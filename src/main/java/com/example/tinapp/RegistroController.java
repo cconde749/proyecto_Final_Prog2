@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.layout.Pane;
 
-public class RegisterController implements Initializable {
+public class RegistroController implements Initializable {
     @FXML
     private TextField textField_name;
     @FXML

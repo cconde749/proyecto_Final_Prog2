@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.example.tinapp;
 
 import java.io.IOException;
@@ -19,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 public class LoginController implements Initializable {
 
     @FXML private TextField textField_email;
@@ -28,71 +23,77 @@ public class LoginController implements Initializable {
     @FXML private Pane background_pane;
     @FXML private Pane login_pane;
     @FXML private Label register_label;
+    @FXML private Label error_label;
+
     private Stage primaryStage;
     private UserManager userManager = UserManager.getInstance();
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Hacer el label clickeable
-        register_label.setOnMouseClicked(event -> {
-            try {
-                // Cargar la nueva ventana
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/tinapp/register.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Registro");
-
-                // Cerrar la ventana actual (opcional)
-                ((Node)(event.getSource())).getScene().getWindow().hide();
-
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-        // Estilo para que parezca un enlace
+        // Estilo y comportamiento del enlace de registro
         register_label.setStyle("-fx-text-fill: #2196F3; -fx-cursor: hand;");
         register_label.setOnMouseEntered(e -> register_label.setUnderline(true));
         register_label.setOnMouseExited(e -> register_label.setUnderline(false));
 
-        //PROCESO DE INICIO DE SESION
-        // Cargar usuarios de prueba
+        register_label.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/tinapp/registro.fxml"));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Registro");
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Carga de usuarios de prueba (puedes quitar esto en producción)
         userManager.registrar("admin@tinapp.com", "Admin", "admin123");
         userManager.registrar("user@tinapp.com", "Usuario", "user123");
 
-        logIn_button.setOnAction(Aevent -> {
-            String email = textField_email.getText();
-            String password = textField_passwd.getText();
+        // Acción de inicio de sesión
+        logIn_button.setOnAction(event -> {
+            String email = textField_email.getText().trim();
+            String password = textField_passwd.getText().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                mostrarError("Por favor, complete todos los campos.");
+                return;
+            }
 
             if (userManager.autenticar(email, password)) {
-                //Autenticación exitosa
-                cargarVistaPrincipal();
+                error_label.setVisible(false);
+                cargarVistaPrincipal(email);
             } else {
-                System.out.println("Credenciales incorrectas");
+                mostrarError("Credenciales incorrectas.");
             }
         });
+    }
+
+    private void mostrarError(String mensaje) {
+        error_label.setText(mensaje);
+        error_label.setVisible(true);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-private void cargarVistaPrincipal() {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/Catalog.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) logIn_button.getScene().getWindow();
-        stage.setScene(new Scene(root));
-    } catch (IOException e) {
-        e.printStackTrace();
+    private void cargarVistaPrincipal(String email) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/Catalogo.fxml"));
+            Parent root = loader.load();
+
+            CatalogoController controller = loader.getController();
+            controller.setUsuario(email);
+
+            Stage stage = (Stage) logIn_button.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Catálogo Principal");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
-}
-
-
-    
 }

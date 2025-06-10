@@ -7,6 +7,14 @@ public class Producto {
     private double precio;
     private String imagenUrl;
 
+    public Producto(String id, String nombre, String descripcion, double precio, String imagenUrl) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imagenUrl = imagenUrl;
+    }
+
     public String getId() {
         return id;
     }

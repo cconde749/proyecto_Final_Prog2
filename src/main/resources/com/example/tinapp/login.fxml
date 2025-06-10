@@ -13,7 +13,7 @@
    <children>
       <Pane fx:id="background_pane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Pane fx:id="login_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;" stylesheets="@style_register.css">
+            <Pane fx:id="login_pane" layoutX="399.0" layoutY="55.0" prefHeight="624.0" prefWidth="482.0" style="-fx-background-color: #F9FBFF;" stylesheets="@estilo_registro.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="166.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,6 +58,7 @@
                         <Font name="Courier New Bold" size="14.0" />
                      </font>
                   </Label>
+                  <Label fx:id="error_label" layoutX="60" layoutY="270" textFill="red" visible="false"/>
                </children>
             </Pane>
          </children></Pane>

@@ -1,0 +1,57 @@
+/* Estilos generales para el grid */
+#productsGrid {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Estilos para las tarjetas de producto */
+.product-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-padding: 10px;
+}
+
+.product-name {
+    -fx-font-family: "Courier New Bold";
+    -fx-font-size: 16px;
+}
+
+.product-desc {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 14px;
+    -fx-text-fill: #666;
+}
+
+.product-price {
+    -fx-font-family: "Courier New Bold";
+    -fx-font-size: 18px;
+    -fx-text-fill: #FE5F7D;
+}
+
+.quantity-btn {
+    -fx-background-radius: 15px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-font-weight: bold;
+}
+
+.add-to-cart-btn {
+    -fx-background-color: #FE5F7D;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px;
+    -fx-padding: 5px 15px;
+}
+
+.wishlist-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #FE5F7D;
+    -fx-border-radius: 15px;
+    -fx-border-width: 2px;
+}
+
+/* Efecto hover para las tarjetas */
+.product-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
