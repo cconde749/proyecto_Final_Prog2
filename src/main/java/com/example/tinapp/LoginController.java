@@ -82,8 +82,8 @@ public class LoginController implements Initializable {
 
     private void cargarVistaPrincipal(String email) {
         try {
-            // Cambiado a minúscula para coincidir con el nombre real del archivo
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/catalog.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/Catalogo.fxml"));
             Parent root = loader.load();
 
             // Opcional: Pasar datos al controlador del catálogo
