@@ -1,32 +1,58 @@
-/* Estilos generales para el grid */
+/* Estilos base para el GridPane */
 #productsGrid {
-    -fx-background-color: #f5f5f5;
+    -fx-padding: 20px;
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
+    -fx-alignment: center;
 }
 
-/* Estilos para las tarjetas de producto */
+/* Tarjeta de producto */
 .product-card {
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
-    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+    -fx-padding: 15px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 450px;
+    -fx-max-width: 350px;
+    -fx-max-height: 450px;
 }
 
+/* Imagen del producto */
+.product-image {
+    -fx-fit-width: 300px;
+    -fx-fit-height: 200px;
+    -fx-preserve-ratio: true;
+}
+
+/* Textos */
 .product-name {
-    -fx-font-family: "Courier New Bold";
+    -fx-font-family: "System Bold";
     -fx-font-size: 16px;
+    -fx-text-fill: #333333;
 }
 
 .product-desc {
-    -fx-font-family: "Courier New";
+    -fx-font-family: "System";
     -fx-font-size: 14px;
-    -fx-text-fill: #666;
+    -fx-text-fill: #666666;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
 }
 
 .product-price {
-    -fx-font-family: "Courier New Bold";
+    -fx-font-family: "System Bold";
     -fx-font-size: 18px;
     -fx-text-fill: #FE5F7D;
+}
+
+/* Controles de cantidad */
+.quantity-box {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
 }
 
 .quantity-btn {
@@ -34,24 +60,50 @@
     -fx-min-width: 30px;
     -fx-min-height: 30px;
     -fx-font-weight: bold;
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+}
+
+.quantity-btn:hover {
+    -fx-background-color: #E0E0E0;
+}
+
+.quantity-label {
+    -fx-font-family: "System Bold";
+    -fx-font-size: 16px;
+    -fx-padding: 0 10px;
+}
+
+/* Botones de acción */
+.action-box {
+    -fx-alignment: center;
+    -fx-spacing: 15px;
 }
 
 .add-to-cart-btn {
     -fx-background-color: #FE5F7D;
     -fx-text-fill: white;
-    -fx-background-radius: 15px;
-    -fx-padding: 5px 15px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 20px;
+    -fx-font-family: "System Bold";
+    -fx-font-size: 14px;
+}
+
+.add-to-cart-btn:hover {
+    -fx-background-color: #E54F6D;
 }
 
 .wishlist-btn {
     -fx-background-color: transparent;
     -fx-border-color: #FE5F7D;
-    -fx-border-radius: 15px;
+    -fx-border-radius: 20px;
     -fx-border-width: 2px;
+    -fx-padding: 8px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
 }
 
-/* Efecto hover para las tarjetas */
-.product-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
-    -fx-cursor: hand;
+.wishlist-btn:hover {
+    -fx-background-color: rgba(254, 95, 125, 0.1);
 }

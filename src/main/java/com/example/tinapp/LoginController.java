@@ -82,18 +82,22 @@ public class LoginController implements Initializable {
 
     private void cargarVistaPrincipal(String email) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/Catalogo.fxml"));
+            // Cambiado a minúscula para coincidir con el nombre real del archivo
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/tinapp/catalog.fxml"));
             Parent root = loader.load();
 
+            // Opcional: Pasar datos al controlador del catálogo
             CatalogoController controller = loader.getController();
-            controller.setUsuario(email);
+            // Si necesitas pasar el email al catálogo:
+            // controller.setUsuarioActual(email);
 
             Stage stage = (Stage) logIn_button.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Catálogo Principal");
+            stage.centerOnScreen(); // Centrar la ventana
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarError("Error al cargar el catálogo");
         }
-
     }
 }
