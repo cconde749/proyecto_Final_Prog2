@@ -1,22 +1,31 @@
 package com.example.tinapp;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import javax.swing.tree.DefaultTreeModel;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CatalogoController implements Initializable {
     @FXML private GridPane productsGrid;
+    @FXML private GridPane shopResumeGrid;
+    @FXML private Button goCart;
 
     // Lista de productos
     private ListaDobleProductos listaProductos = new ListaDobleProductos();
@@ -28,21 +37,57 @@ public class CatalogoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cargarProductosEjemplo();
         mostrarProductos();
+        // Configurar el botón del carrito
+        goCart.setOnAction(e -> irAlCarrito());
+    }
+
+    @FXML
+    private void irAlCarrito() {
+        try {
+            // 1. Obtener el Stage actual
+            Stage currentStage = (Stage) goCart.getScene().getWindow();
+
+            // 2. Cargar el FXML del carrito
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Carrito.fxml"));
+            Parent root = loader.load();
+
+            // 3. Configurar el controlador del carrito si es necesario
+            CarritoController controller = loader.getController();
+            // Puedes pasar datos aquí si lo necesitas
+
+            // 4. Mostrar la nueva vista
+            currentStage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error al cargar la vista del carrito");
+        }
+    }
+
+    private void guardarEstadoCarrito() {
+        // Aquí puedes guardar el estado del carrito en una clase singleton o en el modelo
+        // Por ejemplo:
+        CarritoManager.getInstance().setCarrito(carrito);
     }
 
     private void cargarProductosEjemplo() {
         listaProductos.agregarProducto(new Producto("1", "Laptop Gamer",
                 "Laptop de alto rendimiento", 1299.99, "laptop.png"));
+
         listaProductos.agregarProducto(new Producto("2", "Smartphone",
-                "Último modelo con cámara 108MP", 799.99, "laptop.png"));
-        listaProductos.agregarProducto(new Producto("3", "Diademas gamer",
-                "Último modelo de diademas gamer", 799.99, "laptop.png"));
+                "Celular IPhone 16 pro max", 799.99, "IPhone.png"));
+
+        listaProductos.agregarProducto(new Producto("3", "Diademas_gamer",
+                "Diademas gamer", 799.99, "diademas.png"));
+
         listaProductos.agregarProducto(new Producto("4", "Mouse gamer",
-                "Último modelo de mouse gamer", 799.99, "laptop.png"));
-        listaProductos.agregarProducto(new Producto("5", "Mouse gamer",
-                "Último modelo de mouse gamer", 799.99, "Keyboard.png"));
-        listaProductos.agregarProducto(new Producto("6", "Mouse gamer",
-                "Último modelo de mouse gamer", 799.99, "laptop.png"));
+                "Mouse gamer", 799.99, "mouse.png"));
+
+        listaProductos.agregarProducto(new Producto("5", "Mando_pc",
+                "Mando de videojuegos para pc", 799.99, "gamepad.png"));
+
+        listaProductos.agregarProducto(new Producto("6", "Teclado",
+                "Teclado de oficina", 799.99, "Keyboard.png"));
     }
 
     private void mostrarProductos() {
@@ -70,35 +115,33 @@ public class CatalogoController implements Initializable {
     }
 
     private VBox crearTarjetaProducto(Producto producto) {
-        VBox card = new VBox(8); // Espaciado interno reducido
-        card.setAlignment(Pos.TOP_CENTER);
-        card.setStyle("-fx-background-color: #FBACDB; -fx-background-radius: 10; -fx-padding: 15;");
-        card.setEffect(new javafx.scene.effect.DropShadow(5, Color.gray(0.3)));
+        VBox card = new VBox(1); // Espaciado interno reducido
+        card.setAlignment(Pos.BOTTOM_CENTER);
+        card.setStyle("-fx-background-color: #FBACDB;");
+        card.setEffect(new DropShadow(5, Color.gray(0.3)));
 
         // Tamaño fijo para la tarjeta
-        card.setPrefSize(250, 250);
+        card.setMinSize(250, 250);
+        card.setMaxSize(250, 250);
 
         // Imagen ajustada
         ImageView imageView = new ImageView();
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(150);
+        imageView.setFitHeight(150);
+        imageView.setSmooth(true);
         try {
             Image originalImage = new Image(
                     getClass().getResourceAsStream("/com/images/products/" + producto.getImagenUrl().trim()));
             System.out.println("/com/images/products/" + producto.getImagenUrl());
 
+
             imageView.setImage(originalImage);
-            imageView.setPreserveRatio(true);
-            imageView.setFitWidth(150);
+
         } catch (Exception e) {
             imageView.setImage(new Image(getClass().getResourceAsStream(
                     "/com/images/products/diademas.png")));
         }
-        // Configuración adicional del ImageView
-        imageView.setFitWidth(179);
-        imageView.setFitHeight(142);
-        imageView.setPreserveRatio(true); // Desactivado porque ya lo controlamos al cargar
-        imageView.setSmooth(true);
-        imageView.setCache(true);
-        imageView.setCacheHint(CacheHint.QUALITY);
 
         // Textos con fuentes ajustadas
         Label nameLabel = new Label(producto.getNombre());
@@ -159,9 +202,66 @@ public class CatalogoController implements Initializable {
         return card;
     }
 
+    private void actualizarResumenCarrito() {
+        shopResumeGrid.getChildren().clear();
+
+        int row = 0;
+        for (ItemCarrito item : carrito.obtenerTodosItems()) {
+            // Crear contenedor para cada item del carrito
+            HBox itemBox = new HBox(10);
+            itemBox.setAlignment(Pos.CENTER_LEFT);
+            itemBox.setStyle("-fx-background-color: #FBACDB; -fx-padding: 10; -fx-background-radius: 5;");
+
+            // Imagen del producto
+            ImageView imageView = new ImageView();
+            try {
+                Image image = new Image(getClass().getResourceAsStream(
+                        "/com/images/products/" + item.getProducto().getImagenUrl().trim()));
+                imageView.setImage(image);
+            } catch (Exception e) {
+                imageView.setImage(new Image(getClass().getResourceAsStream(
+                        "/com/images/products/diademas.png")));
+            }
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setPreserveRatio(true);
+
+            // Control de cantidad con Spinner
+            Spinner<Integer> spinner = new Spinner<>(1, 10, item.getCantidad());
+            spinner.setEditable(true);
+            spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+                item.setCantidad(newValue);
+                actualizarResumenCarrito(); // Actualizar para reflejar cambios
+            });
+
+            // Botón para eliminar
+            Button deleteBtn = new Button("Eliminar");
+            deleteBtn.setStyle("-fx-background-color: #FE5F7D; -fx-text-fill: white;");
+            deleteBtn.setOnAction(e -> {
+                carrito.eliminarItem(item.getProducto().getId());
+                actualizarResumenCarrito();
+            });
+
+            // Label para mostrar subtotal
+            Label subtotalLabel = new Label(String.format("$%.2f", item.getSubtotal()));
+            subtotalLabel.setStyle("-fx-font-weight: bold;");
+
+            itemBox.getChildren().addAll(imageView, spinner, deleteBtn, subtotalLabel);
+            shopResumeGrid.add(itemBox, 0, row++);
+        }
+
+        // Agregar fila con el total
+        Label totalLabel = new Label("Total: $" + String.format("%.2f", carrito.calcularTotal()));
+        totalLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+        shopResumeGrid.add(totalLabel, 0, row);
+    }
+
     private void añadirAlCarrito(Producto producto, int cantidad) {
-        carrito.agregarItem(new ItemCarrito(producto, cantidad));
-        System.out.println("Carrito: " + carrito.obtenerTodosItems().size() + " items");
+
+            carrito.agregarItem(new ItemCarrito(producto, cantidad));
+            actualizarResumenCarrito();
+            mostrarAlerta(producto.getNombre() + " añadido al carrito");
+
     }
 
     private void mostrarAlerta(String mensaje) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="Tu Carrito de Compras" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+        <ListView fx:id="carritoListView"/>
+        <Label fx:id="totalLabel" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <!--<Button text="Volver al Catálogo" onAction="#volverAlCatalogo"/>-->
+    </VBox>
+</AnchorPane>

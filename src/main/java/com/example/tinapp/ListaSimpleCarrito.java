@@ -1,12 +1,15 @@
 package com.example.tinapp;
 
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaSimpleCarrito {
     private NodoItemCarrito primero;
     private int tamaño;
 
-    private class NodoItemCarrito {
+    private static class NodoItemCarrito {
         ItemCarrito item;
         NodoItemCarrito siguiente;
 
@@ -19,10 +22,21 @@ public class ListaSimpleCarrito {
     public void agregarItem(ItemCarrito item) {
         NodoItemCarrito nuevo = new NodoItemCarrito(item);
 
+        // Verificar si el producto ya existe
+        NodoItemCarrito actual = primero;
+        while (actual != null) {
+            if (actual.item.getProducto().getId().equals(item.getProducto().getId())) {
+                actual.item.setCantidad(actual.item.getCantidad() + item.getCantidad());
+                return;
+            }
+            actual = actual.siguiente;
+        }
+
+        // Si no existe, agregarlo al final
         if (primero == null) {
             primero = nuevo;
         } else {
-            NodoItemCarrito actual = primero;
+            actual = primero;
             while (actual.siguiente != null) {
                 actual = actual.siguiente;
             }
@@ -52,8 +66,8 @@ public class ListaSimpleCarrito {
         return false;
     }
 
-    public List<ItemCarrito> obtenerTodosItems() {
-        List<ItemCarrito> items = new java.util.ArrayList<>();
+    public ObservableList<ItemCarrito> obtenerTodosItems() {
+        List<ItemCarrito> items = new ArrayList<>();
         NodoItemCarrito actual = primero;
 
         while (actual != null) {
@@ -61,7 +75,7 @@ public class ListaSimpleCarrito {
             actual = actual.siguiente;
         }
 
-        return items;
+        return (ObservableList<ItemCarrito>) items;
     }
 
     public double calcularTotal() {
@@ -69,10 +83,14 @@ public class ListaSimpleCarrito {
         NodoItemCarrito actual = primero;
 
         while (actual != null) {
-            total += actual.item.getProducto().getPrecio() * actual.item.getCantidad();
+            total += actual.item.getSubtotal();
             actual = actual.siguiente;
         }
 
         return total;
+    }
+
+    public int getTamaño() {
+        return tamaño;
     }
 }
