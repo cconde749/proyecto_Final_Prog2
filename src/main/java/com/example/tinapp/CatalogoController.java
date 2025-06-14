@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,8 +15,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import javax.swing.tree.DefaultTreeModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,18 +41,12 @@ public class CatalogoController implements Initializable {
     @FXML
     private void irAlCarrito() {
         try {
-            // 1. Obtener el Stage actual
-            Stage currentStage = (Stage) goCart.getScene().getWindow();
+            // Guardar el estado del carrito
+            CarritoManager.getInstance().setCarrito(carrito);
 
-            // 2. Cargar el FXML del carrito
+            Stage currentStage = (Stage) goCart.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Carrito.fxml"));
             Parent root = loader.load();
-
-            // 3. Configurar el controlador del carrito si es necesario
-            CarritoController controller = loader.getController();
-            // Puedes pasar datos aquí si lo necesitas
-
-            // 4. Mostrar la nueva vista
             currentStage.setScene(new Scene(root));
 
         } catch (IOException e) {
@@ -159,6 +150,14 @@ public class CatalogoController implements Initializable {
         buttonBox.setAlignment(Pos.CENTER);
 
         Button addToCartBtn = new Button("Carrito");
+        addToCartBtn.setOnAction(e -> {
+            // 1) Creas o reutilizas tu objeto ItemCarrito
+            ItemCarrito nuevo = new ItemCarrito(producto, 1);
+            // 2) Lo agregas a tu lista interna
+            carrito.agregarItem(nuevo);  // método que inserta en tu ListaSimpleCarrito
+            // 3) Refrescas el grid de resumen
+            actualizarResumenCarrito();
+        });
         addToCartBtn.setPrefSize(162, 28); // Tamaño fijo del botón
         addToCartBtn.setMaxSize(162, 28); // Evita que crezca
         addToCartBtn.setContentDisplay(ContentDisplay.LEFT); // Icono a la izquierda del texto
@@ -204,13 +203,15 @@ public class CatalogoController implements Initializable {
 
     private void actualizarResumenCarrito() {
         shopResumeGrid.getChildren().clear();
+        shopResumeGrid.setMinWidth(250);
+        shopResumeGrid.setMaxWidth(250);
 
         int row = 0;
         for (ItemCarrito item : carrito.obtenerTodosItems()) {
             // Crear contenedor para cada item del carrito
-            HBox itemBox = new HBox(10);
+            HBox itemBox = new HBox(7);
             itemBox.setAlignment(Pos.CENTER_LEFT);
-            itemBox.setStyle("-fx-background-color: #FBACDB; -fx-padding: 10; -fx-background-radius: 5;");
+            itemBox.setStyle("-fx-background-color: #FBACDB; -fx-padding: 5; -fx-background-radius: 5;");
 
             // Imagen del producto
             ImageView imageView = new ImageView();
@@ -229,24 +230,24 @@ public class CatalogoController implements Initializable {
             // Control de cantidad con Spinner
             Spinner<Integer> spinner = new Spinner<>(1, 10, item.getCantidad());
             spinner.setEditable(true);
+            spinner.setMaxSize(50,30);
             spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
                 item.setCantidad(newValue);
                 actualizarResumenCarrito(); // Actualizar para reflejar cambios
             });
 
             // Botón para eliminar
-            Button deleteBtn = new Button("Eliminar");
-            deleteBtn.setStyle("-fx-background-color: #FE5F7D; -fx-text-fill: white;");
-            deleteBtn.setOnAction(e -> {
-                carrito.eliminarItem(item.getProducto().getId());
-                actualizarResumenCarrito();
+            Button removeBtn = new Button("Eliminar");
+            removeBtn.setOnAction(ev -> {
+                carrito.eliminarItem(item.toString());    // tu método para quitar de la lista enlazada
+                actualizarResumenCarrito();    // refresca la vista
             });
 
             // Label para mostrar subtotal
             Label subtotalLabel = new Label(String.format("$%.2f", item.getSubtotal()));
             subtotalLabel.setStyle("-fx-font-weight: bold;");
 
-            itemBox.getChildren().addAll(imageView, spinner, deleteBtn, subtotalLabel);
+            itemBox.getChildren().addAll(imageView, spinner, removeBtn, subtotalLabel);
             shopResumeGrid.add(itemBox, 0, row++);
         }
 

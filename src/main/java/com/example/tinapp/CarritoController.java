@@ -1,68 +1,78 @@
 package com.example.tinapp;
 
-import com.example.tinapp.ItemCarrito;
-import com.example.tinapp.ListaSimpleCarrito;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CarritoController implements Initializable {
-    @FXML
-    private ListView<ItemCarrito> carritoListView;
+    @FXML private GridPane carritoGrid;
+    @FXML private Label subtotalLabel;
+    @FXML private Label ivaLabel;
     @FXML private Label totalLabel;
+    @FXML private Button pagarBtn;
 
     private ListaSimpleCarrito carrito;
-    private CarritoManager carritoManager;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // Obtener el carrito guardado
-        carrito = carritoManager.getInstance().getCarrito();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        carrito = CarritoManager.getInstance().getCarrito();
+        cargarCarritoVisual();
+        calcularTotales();
 
-        // Configurar el ListView
-        carritoListView.setItems(carrito.obtenerTodosItems());
-        carritoListView.setCellFactory(lv -> new ListCell<ItemCarrito>() {
-            @Override
-            protected void updateItem(ItemCarrito item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    // Crear una celda personalizada para cada item
-                    HBox cell = new HBox(10);
-                    // ... similar a lo que hicimos en el resumen
-                    setGraphic(cell);
-                }
-            }
+        pagarBtn.setOnAction(e -> {
+            // Redirigir a la pasarela de pago
+            System.out.println("Redirigiendo a la pasarela de pago...");
+            // AQUI IMPLEMENTAS LA REDIRECCIÓN
         });
-
-        // Actualizar el total
-        actualizarTotal();
     }
 
-    private void actualizarTotal() {
-        totalLabel.setText(String.format("Total: $%.2f", carrito.calcularTotal()));
-    }
+    private void cargarCarritoVisual() {
+        carritoGrid.getChildren().clear();
+        int row = 0;
 
-    @FXML
-    private void volverAlCatalogo() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Catalogo.fxml"));
-            Scene scene = totalLabel.getScene();
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (ItemCarrito item : carrito.obtenerTodosItems()) {
+            HBox itemBox = new HBox(10);
+            itemBox.setAlignment(Pos.CENTER_LEFT);
+            itemBox.setStyle("-fx-background-color: #FBACDB; -fx-padding: 5; -fx-background-radius: 5;");
+
+            ImageView imageView = new ImageView();
+            try {
+                Image image = new Image(getClass().getResourceAsStream(
+                        "/com/images/products/" + item.getProducto().getImagenUrl().trim()));
+                imageView.setImage(image);
+            } catch (Exception e) {
+                imageView.setImage(new Image(getClass().getResourceAsStream(
+                        "/com/images/products/diademas.png")));
+            }
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setPreserveRatio(true);
+
+            Label nombre = new Label(item.getProducto().getNombre());
+            Label cantidad = new Label("x" + item.getCantidad());
+            Label subtotal = new Label(String.format("$%.2f", item.getSubtotal()));
+
+            itemBox.getChildren().addAll(imageView, nombre, cantidad, subtotal);
+            carritoGrid.add(itemBox, 0, row++);
         }
+    }
+
+    private void calcularTotales() {
+        double subtotal = carrito.calcularTotal();
+        double iva = 0.0; // IVA fijo por ahora
+        double total = subtotal + iva;
+
+        subtotalLabel.setText(String.format("$%.2f", subtotal));
+        ivaLabel.setText(String.format("$%.2f", iva));
+        totalLabel.setText(String.format("$%.2f", total));
     }
 }

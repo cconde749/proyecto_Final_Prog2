@@ -1,7 +1,7 @@
 package com.example.tinapp;
 
 import javafx.collections.ObservableList;
-
+import javafx.collections.FXCollections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class ListaSimpleCarrito {
             actual = actual.siguiente;
         }
 
-        return (ObservableList<ItemCarrito>) items;
+        return FXCollections.observableArrayList(items);
     }
 
     public double calcularTotal() {

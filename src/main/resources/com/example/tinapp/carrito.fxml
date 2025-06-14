@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
-        <Label text="Tu Carrito de Compras" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
-        <ListView fx:id="carritoListView"/>
-        <Label fx:id="totalLabel" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
-        <!--<Button text="Volver al Catálogo" onAction="#volverAlCatalogo"/>-->
-    </VBox>
+<AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.CarritoController">
+    <children>
+        <Pane prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <!-- Encabezado igual al de catálogo -->
+                <Separator layoutY="90.0" prefWidth="1200.0" />
+                <ImageView fitHeight="92.0" fitWidth="94.0" layoutX="22.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/user.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="781.0" layoutY="39.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/wishlist-1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1055.0" layoutY="39.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/shopping-cart.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="568.0" layoutY="42.0" text="Mi cuenta">
+                    <font><Font name="System Bold" size="20.0"/></font>
+                </Label>
+                <Label layoutX="811.0" layoutY="42.0" text="Lista de deseos">
+                    <font><Font name="System Bold" size="20.0"/></font>
+                </Label>
+                <Label layoutX="1085.0" layoutY="42.0" text="Carrito">
+                    <font><Font name="System Bold" size="20.0"/></font>
+                </Label>
+
+                <!-- Contenedor central del carrito -->
+                <GridPane fx:id="carritoGrid" layoutX="50.0" layoutY="120.0" vgap="20.0" hgap="20.0">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="1000.0"/>
+                    </columnConstraints>
+                </GridPane>
+
+                <!-- Zona inferior con Subtotal, IVA y Total -->
+                <Label layoutX="50.0" layoutY="620.0" text="Subtotal:" />
+                <Label fx:id="subtotalLabel" layoutX="150.0" layoutY="620.0" text="'$0.00" />
+                <Label layoutX="50.0" layoutY="650.0" text="IVA (0%):" />
+                <Label fx:id="ivaLabel" layoutX="150.0" layoutY="650.0" text="'$0.00" />
+                <Label layoutX="50.0" layoutY="680.0" text="Total:" />
+                <Label fx:id="totalLabel" layoutX="150.0" layoutY="680.0" text="'$0.00" />
+
+                <Button fx:id="pagarBtn" layoutX="1000.0" layoutY="650.0" text="Pagar" prefWidth="120.0" />
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
