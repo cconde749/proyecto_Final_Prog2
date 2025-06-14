@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,11 +19,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 public class CatalogoController implements Initializable {
     @FXML private GridPane productsGrid;
     @FXML private GridPane shopResumeGrid;
     @FXML private Button goCart;
+    @FXML private Label listaProductosEnc;
+    @FXML private Label carritoEnc;
+    @FXML private Label miCuentaEnc;
+
 
     // Lista de productos
     private ListaDobleProductos listaProductos = new ListaDobleProductos();
@@ -36,7 +42,47 @@ public class CatalogoController implements Initializable {
         mostrarProductos();
         // Configurar el botón del carrito
         goCart.setOnAction(e -> irAlCarrito());
+        asignarEventosEncabezado();
     }
+
+    private void asignarEventosEncabezado() {
+        listaProductosEnc.setOnMouseClicked(this::irListaDeseos);
+        carritoEnc.setOnMouseClicked(this::irAlCarrito2);
+        miCuentaEnc.setOnMouseClicked(this::irMiCuenta);
+    }
+
+    private void irListaDeseos(MouseEvent e) {
+        try {
+            Stage stage = (Stage) listaProductosEnc.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("ListaDeseos.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void irAlCarrito2(MouseEvent e) {
+        try {
+            // Guardar el estado del carrito
+            CarritoManager.getInstance().setCarrito(carrito);
+            Stage stage = (Stage) carritoEnc.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("Carrito.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void irMiCuenta(MouseEvent e) {
+        try {
+            Stage stage = (Stage) miCuentaEnc.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("MiCuenta.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void irAlCarrito() {
@@ -176,16 +222,30 @@ public class CatalogoController implements Initializable {
         wishlistBtn.setPrefSize(28, 28); // Botón cuadrado para el icono
         wishlistBtn.setMaxSize(28, 28);
 
-// Cargar y ajustar imagen de deseos
-        ImageView wishlistIcon = new ImageView(new Image(
-                getClass().getResourceAsStream("/com/images/logos/wishlist-1.png")));
-        wishlistIcon.setFitWidth(20);  // Tamaño del icono
+        // Almacenar iconos para poder alternar
+        Image corazonVacio = new Image(getClass().getResourceAsStream("/com/images/logos/wishlist-1.png"));
+        Image corazonLleno = new Image(getClass().getResourceAsStream("/com/images/logos/my-wish-lis_LLENOt.png"));
+
+        ImageView wishlistIcon = new ImageView(corazonVacio);
+        wishlistIcon.setFitWidth(20);
         wishlistIcon.setFitHeight(20);
         wishlistIcon.setPreserveRatio(true);
-
         wishlistBtn.setGraphic(wishlistIcon);
-        wishlistBtn.setStyle("-fx-background-color: transparent; -fx-background-radius: 15;");
-        wishlistBtn.setTooltip(new Tooltip("Añadir a deseos"));
+
+        wishlistBtn.setOnAction(e -> {
+            ListaDeseosManager listaDeseosManager = ListaDeseosManager.getInstance();
+            Stack<Producto> lista = listaDeseosManager.obtenerListaDeseos();
+
+            if (lista.contains(producto)) {
+                lista.remove(producto); // Eliminar de la lista de deseos
+                wishlistIcon.setImage(corazonVacio);
+            } else {
+                listaDeseosManager.agregarProducto(producto);
+                wishlistIcon.setImage(corazonLleno);
+            }
+        });
+
+
 
         buttonBox.getChildren().addAll(addToCartBtn, wishlistBtn);
 

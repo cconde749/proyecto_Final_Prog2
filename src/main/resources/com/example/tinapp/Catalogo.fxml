@@ -38,17 +38,17 @@
                   <Image url="@../../images/logos/shopping-cart.png" />
                </image>
             </ImageView>
-            <Label layoutX="568.0" layoutY="42.0" text="Mi cuenta">
+            <Label fx:id="miCuentaEnc" layoutX="568.0" layoutY="42.0" text="Mi cuenta">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="811.0" layoutY="42.0" text="Lista de deseos">
+            <Label fx:id="listaProductosEnc" layoutX="811.0" layoutY="42.0" text="Lista de deseos">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="1085.0" layoutY="42.0" text="Carrito">
+            <Label fx:id="carritoEnc" layoutX="1085.0" layoutY="42.0" text="Carrito">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

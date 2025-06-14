@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.CarritoController">
@@ -12,7 +17,7 @@
             <children>
                 <!-- Encabezado igual al de catálogo -->
                 <Separator layoutY="90.0" prefWidth="1200.0" />
-                <ImageView fitHeight="92.0" fitWidth="94.0" layoutX="22.0" preserveRatio="true">
+                <ImageView fx:id="logoPrincipal" fitHeight="92.0" fitWidth="94.0" layoutX="22.0" preserveRatio="true">
                     <image>
                         <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
                     </image>
@@ -32,20 +37,20 @@
                         <Image url="@../../images/logos/shopping-cart.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="568.0" layoutY="42.0" text="Mi cuenta">
-                    <font><Font name="System Bold" size="20.0"/></font>
+                <Label fx:id="miCuentaEnc" layoutX="568.0" layoutY="42.0" text="Mi cuenta">
+                    <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-                <Label layoutX="811.0" layoutY="42.0" text="Lista de deseos">
-                    <font><Font name="System Bold" size="20.0"/></font>
+                <Label fx:id="listaProductosEnc" layoutX="811.0" layoutY="42.0" text="Lista de deseos">
+                    <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-                <Label layoutX="1085.0" layoutY="42.0" text="Carrito">
-                    <font><Font name="System Bold" size="20.0"/></font>
+                <Label fx:id="carritoEnc" layoutX="1085.0" layoutY="42.0" text="Carrito">
+                    <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
 
                 <!-- Contenedor central del carrito -->
-                <GridPane fx:id="carritoGrid" layoutX="50.0" layoutY="120.0" vgap="20.0" hgap="20.0">
+                <GridPane fx:id="carritoGrid" hgap="20.0" layoutX="50.0" layoutY="120.0" vgap="20.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="1000.0"/>
+                        <ColumnConstraints prefWidth="1000.0" />
                     </columnConstraints>
                 </GridPane>
 
@@ -57,7 +62,7 @@
                 <Label layoutX="50.0" layoutY="680.0" text="Total:" />
                 <Label fx:id="totalLabel" layoutX="150.0" layoutY="680.0" text="'$0.00" />
 
-                <Button fx:id="pagarBtn" layoutX="1000.0" layoutY="650.0" text="Pagar" prefWidth="120.0" />
+                <Button fx:id="pagarBtn" layoutX="1000.0" layoutY="650.0" prefWidth="120.0" text="Pagar" />
             </children>
         </Pane>
     </children>

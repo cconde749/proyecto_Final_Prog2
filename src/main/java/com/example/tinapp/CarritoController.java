@@ -1,15 +1,21 @@
 package com.example.tinapp;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,6 +25,10 @@ public class CarritoController implements Initializable {
     @FXML private Label ivaLabel;
     @FXML private Label totalLabel;
     @FXML private Button pagarBtn;
+    @FXML private Label listaProductosEnc;
+    @FXML private Label carritoEnc;
+    @FXML private Label miCuentaEnc;
+    @FXML private ImageView logoPrincipal;
 
     private ListaSimpleCarrito carrito;
 
@@ -33,6 +43,43 @@ public class CarritoController implements Initializable {
             System.out.println("Redirigiendo a la pasarela de pago...");
             // AQUI IMPLEMENTAS LA REDIRECCIÓN
         });
+        asignarEventosEncabezado();
+    }
+
+    private void asignarEventosEncabezado() {
+        logoPrincipal.setOnMouseClicked(this::irAlCatalogo);
+        listaProductosEnc.setOnMouseClicked(this::irListaDeseos);
+        miCuentaEnc.setOnMouseClicked(this::irMiCuenta);
+    }
+
+    private void irAlCatalogo(MouseEvent e) {
+        try {
+            Stage stage = (Stage) logoPrincipal.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("Catalogo.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void irListaDeseos(MouseEvent e) {
+        try {
+            Stage stage = (Stage) listaProductosEnc.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("ListaDeseos.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void irMiCuenta(MouseEvent e) {
+        try {
+            Stage stage = (Stage) miCuentaEnc.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("MiCuenta.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void cargarCarritoVisual() {

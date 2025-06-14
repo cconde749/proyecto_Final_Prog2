@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.tinapp.ListaDeseosController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.ListaDeseosController">
+    <children>
+        <Pane prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Separator layoutY="90.0" prefWidth="1200.0" />
+                <ImageView fx:id="logoPrincipal" fitHeight="92.0" fitWidth="94.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="userBtn" fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/user.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="deseosBtn" fitHeight="30.0" fitWidth="30.0" layoutX="781.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/wishlist-1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="carritoBtn" fitHeight="30.0" fitWidth="30.0" layoutX="1055.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/logos/shopping-cart.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="568.0" layoutY="42.0" text="Mi cuenta">
+                    <font><Font name="System Bold" size="20.0" /></font>
+                </Label>
+                <Label layoutX="811.0" layoutY="42.0" text="Lista de deseos">
+                    <font><Font name="System Bold" size="20.0" /></font>
+                </Label>
+                <Label layoutX="1085.0" layoutY="42.0" text="Carrito">
+                    <font><Font name="System Bold" size="20.0" /></font>
+                </Label>
 
+                <!-- Grid de deseos -->
+                <ScrollPane layoutX="50" layoutY="120" prefWidth="1100" prefHeight="550">
+                    <content>
+                        <GridPane fx:id="wishlistGrid" hgap="20" vgap="20" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
