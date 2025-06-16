@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720" prefWidth="1200" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.MiCuentaController">
+    <children>
+        <Pane prefHeight="720" prefWidth="1200" style="-fx-background-color:#FFFFFF;">
+            <!-- Encabezado -->
+            <Separator layoutY="90.0" prefWidth="1200.0" />
+            <ImageView fx:id="logoPrincipal" fitHeight="92.0" fitWidth="94.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/logos/user.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="781.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/logos/wishlist-1.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1055.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/logos/shopping-cart.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="miCuentaEnc" layoutX="568.0" layoutY="42.0" text="Mi cuenta">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+            <Label fx:id="listaProductosEnc" layoutX="811.0" layoutY="42.0" text="Lista de deseos">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+            <Label fx:id="carritoEnc" layoutX="1085.0" layoutY="42.0" text="Carrito">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+            <!-- Encabezado idéntico -->
+            <Separator layoutY="90" prefWidth="1200" />
+            <!-- ... tus ImageView y Labels del header con fx:id -->
+            <!-- Contenido: historial -->
+            <ScrollPane layoutX="50" layoutY="120" prefHeight="500" prefWidth="1100">
+                <content>
+                    <VBox fx:id="historyBox" spacing="10" />
+                </content>
+            </ScrollPane>
+            <!-- Botón Exportar -->
+            <Button fx:id="exportBtn" layoutX="1000" layoutY="650" prefWidth="120" text="Exportar .txt" />
+        </Pane>
+    </children>
+</AnchorPane>

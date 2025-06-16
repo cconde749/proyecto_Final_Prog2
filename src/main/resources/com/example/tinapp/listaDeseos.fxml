@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tinapp.ListaDeseosController">
     <children>
@@ -16,7 +20,7 @@
                         <Image url="@../../images/logos/Captura_de_pantalla__1077_-removebg-preview.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="userBtn" fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="MiCuenta" fitHeight="30.0" fitWidth="30.0" layoutX="538.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../images/logos/user.png" />
                     </image>
@@ -42,7 +46,7 @@
                 </Label>
 
                 <!-- Grid de deseos -->
-                <ScrollPane layoutX="50" layoutY="120" prefWidth="1100" prefHeight="550">
+                <ScrollPane layoutX="50" layoutY="120" prefHeight="550" prefWidth="1100">
                     <content>
                         <GridPane fx:id="wishlistGrid" hgap="20" vgap="20" />
                     </content>

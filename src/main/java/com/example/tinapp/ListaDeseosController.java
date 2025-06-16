@@ -7,6 +7,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -29,6 +31,7 @@ public class ListaDeseosController implements Initializable {
     @FXML private ImageView logoPrincipal;
     @FXML private ImageView carritoBtn;
     @FXML private ImageView deseosBtn;
+    @FXML private ImageView MiCuenta;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,7 +87,18 @@ public class ListaDeseosController implements Initializable {
         priceLabel.setFont(Font.font("System Bold", 16));
         priceLabel.setStyle("-fx-text-fill: #FE5F7D; -fx-font-weight: bold;");
 
-        card.getChildren().addAll(imageView, nameLabel, priceLabel);
+        // Después de priceLabel…
+        Button addToCart = new Button("Carrito");
+        addToCart.setOnAction(ev -> {
+            ItemCarrito ic = new ItemCarrito(producto, 1);
+            CarritoManager.getInstance().getCarrito().agregarItem(ic);
+            mostrarAlerta(producto.getNombre() + " añadido al carrito");
+        });
+        addToCart.setStyle("-fx-background-color:#FE5F7D; -fx-text-fill:white; -fx-background-radius:15;");
+        //card.getChildren().add(addToCart);
+
+
+        card.getChildren().addAll(imageView, nameLabel, priceLabel, addToCart);
         return card;
     }
 
@@ -92,6 +106,17 @@ public class ListaDeseosController implements Initializable {
         logoPrincipal.setOnMouseClicked(this::irAlCatalogo);
         carritoBtn.setOnMouseClicked(this::irAlCarrito);
         deseosBtn.setOnMouseClicked(this::irListaDeseos);
+        MiCuenta.setOnMouseClicked(this::irMiCuenta);
+    }
+
+    private void irMiCuenta(MouseEvent e) {
+        try {
+            Stage stage = (Stage) MiCuenta.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("MiCuenta.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void irAlCatalogo(MouseEvent e) {
@@ -116,5 +141,13 @@ public class ListaDeseosController implements Initializable {
 
     private void irListaDeseos(MouseEvent e) {
         // Ya está en la lista de deseos
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

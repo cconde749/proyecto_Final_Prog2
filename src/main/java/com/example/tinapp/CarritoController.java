@@ -6,7 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +19,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CarritoController implements Initializable {
@@ -38,11 +43,29 @@ public class CarritoController implements Initializable {
         cargarCarritoVisual();
         calcularTotales();
 
+        // En CarritoController.initialize(...)
         pagarBtn.setOnAction(e -> {
-            // Redirigir a la pasarela de pago
-            System.out.println("Redirigiendo a la pasarela de pago...");
-            // AQUI IMPLEMENTAS LA REDIRECCIÓN
+            // 1) Alerta de éxito
+            Alert ok = new Alert(Alert.AlertType.INFORMATION, "¡Compra exitosa!", ButtonType.OK);
+            ok.showAndWait();
+
+            // 2) Guardar en historial
+            List<ItemCarrito> items = new ArrayList<>(carrito.obtenerTodosItems());
+            double total = carrito.calcularTotal();
+            Purchase p = new Purchase(LocalDateTime.now(), total, items);
+            PurchaseHistoryManager.getInstance().agregarCompra(p);
+
+            // 3) Resetear carrito
+            CarritoManager.getInstance().setCarrito(new ListaSimpleCarrito());
+
+            // 4) Volver al catálogo
+            try {
+                Stage stage = (Stage) pagarBtn.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("Catalogo.fxml"));
+                stage.setScene(new Scene(root));
+            } catch (IOException ex) { ex.printStackTrace(); }
         });
+
         asignarEventosEncabezado();
     }
 
